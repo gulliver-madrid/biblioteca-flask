@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "catalogo"
+version = "0.1.0"
+description = "Microservicio para la gestión del catálogo de la biblioteca."
+authors = ["gulliver-madrid <49131885+gulliver-madrid@users.noreply.github.com>"]
+license = "GPLv3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^3.0.2"
+python-dotenv = "^1.0.1"
+pymysql = "^1.1.0"
+flask-sqlalchemy = "^3.1.1"
+flask-migrate = "^4.0.5"
+cryptography = "^42.0.2"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
