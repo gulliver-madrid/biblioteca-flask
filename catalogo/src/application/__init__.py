@@ -1,7 +1,7 @@
-from .. import config  # pyright: ignore [reportUnusedImport]
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from .. import config  # pyright: ignore [reportUnusedImport]
 
 
 db = SQLAlchemy()
@@ -18,4 +18,7 @@ def create_app():
 
     with app.app_context():
         # Register blueprint
+        from .libro_api import libro_api_blueprint
+
+        app.register_blueprint(blueprint=libro_api_blueprint)
         return app
