@@ -1,5 +1,7 @@
 from flask_migrate import Migrate
-from .application import create_app, db
+from .application import create_app, db, models
+
+# hay que importar models para que se definan los modelos
 
 # desde aqui se ejecuta la aplicacion flask
 
