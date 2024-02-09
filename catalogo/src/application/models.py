@@ -16,6 +16,9 @@ class Autor(db.Model):
     # Relacion inversa (opcional)
     libros = db.relationship('Libro', secondary=autores_libros, backref=db.backref('autores', lazy='dynamic'))
 
+    def __repr__(self) -> str:
+        return f"<Autor(id={self.id}, nombre=\"{self.nombre}\")>"
+
     def to_json(self):
         return {
             "id": self.id,
@@ -30,6 +33,9 @@ class Libro(db.Model):
     title = db.Column(db.String(255), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     # La relacion con autores se maneja a traves de la tabla asociativa
+
+    def __repr__(self) -> str:
+        return f"<Libro(id={self.id}, title=\"{self.title}\")>"
 
     def to_json(self):
         return {
