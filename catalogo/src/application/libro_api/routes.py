@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from . import libro_api_blueprint
 from .. import db
-from ..models import Libro
+from ..models import Libro, Autor
 
 # aqui se definen las rutas
 
@@ -28,4 +28,17 @@ def add_book():
     db.session.commit()
 
     response = jsonify({"message": "Libro added", "libro": libro.to_json()})
+    return response
+
+
+@libro_api_blueprint.route("/api/autor/add", methods=["POST"])
+def add_author():
+    nombre = request.form["nombre"]
+    autor = Autor()
+    autor.nombre = nombre
+
+    db.session.add(autor)
+    db.session.commit()
+
+    response = jsonify({"message": "Author added", "autor": autor.to_json()})
     return response
