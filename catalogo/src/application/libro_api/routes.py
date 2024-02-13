@@ -7,7 +7,7 @@ from ..models import Libro, Autor
 
 
 @libro_api_blueprint.route("/api/libros", methods=["GET"])
-def libros():
+def get_libros():
     libros = []
     for row in Libro.query.all():  # pyright: ignore [reportUnknownVariableType]
         libros.append(  # pyright: ignore [reportUnknownMemberType]
@@ -15,6 +15,18 @@ def libros():
         )
 
     response = jsonify({"results": libros})
+    return response
+
+
+@libro_api_blueprint.route("/api/autores", methods=["GET"])
+def get_autores():
+    autores = []
+    for row in Autor.query.all():  # pyright: ignore [reportUnknownVariableType]
+        autores.append(  # pyright: ignore [reportUnknownMemberType]
+            row.to_json()  # pyright: ignore [reportUnknownMemberType,reportUnknownArgumentType]
+        )
+
+    response = jsonify({"results": autores})
     return response
 
 
