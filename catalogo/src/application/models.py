@@ -1,7 +1,24 @@
 from datetime import datetime
-from . import db
+from typing import TYPE_CHECKING, Generic, TypeVar
+from typing_extensions import Self
+from . import db, JsonDict
 
 # aqui se definen los modelos
+
+
+# Definimos una clase base intermedia para mejorar el tipado
+if TYPE_CHECKING:
+    T = TypeVar("T")
+
+    class Query(Generic[T]):
+        def all(self) -> list[T]: ...
+
+    class Model:
+        query: Query[Self]
+
+else:
+    Model = db.Model
+
 
 autores_libros = db.Table(
     "autores_libros",
@@ -10,7 +27,7 @@ autores_libros = db.Table(
 )
 
 
-class Autor(db.Model):
+class Autor(Model):
     __tablename__ = "autores"
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(255), nullable=False)
@@ -23,7 +40,7 @@ class Autor(db.Model):
     def __repr__(self) -> str:
         return f'<Autor(id={self.id}, nombre="{self.nombre}")>'
 
-    def to_json(self):
+    def to_json(self) -> JsonDict:
         return {
             "id": self.id,
             "nombre": self.nombre,
@@ -31,7 +48,7 @@ class Autor(db.Model):
         }
 
 
-class Libro(db.Model):
+class Libro(Model):
     __tablename__ = "libros"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), unique=True, nullable=False)
@@ -41,7 +58,7 @@ class Libro(db.Model):
     def __repr__(self) -> str:
         return f'<Libro(id={self.id}, title="{self.title}")>'
 
-    def to_json(self):
+    def to_json(self) -> JsonDict:
         return {
             "id": self.id,
             "title": self.title,

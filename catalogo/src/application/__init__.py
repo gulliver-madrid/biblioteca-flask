@@ -3,6 +3,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 
+JsonDict = dict[str, object]
+
 
 class Base(DeclarativeBase):
     pass
@@ -14,7 +16,7 @@ db = SQLAlchemy(model_class=Base)
 from .. import config  # pyright: ignore [reportUnusedImport]
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
 
     environment_configuration = os.environ["CONFIGURATION_SETUP"]

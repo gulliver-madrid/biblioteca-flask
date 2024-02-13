@@ -1,5 +1,5 @@
 from flask_migrate import Migrate
-from .application import create_app, db
+from .application import create_app, db, JsonDict
 
 
 # desde aqui se ejecuta la aplicacion flask
@@ -13,7 +13,7 @@ migrate = Migrate(app, db)
 
 
 @app.shell_context_processor
-def make_shell_context():
+def make_shell_context() -> JsonDict:
     return {"db": db, "Autor": models.Autor, "Libro": models.Libro}
 
 

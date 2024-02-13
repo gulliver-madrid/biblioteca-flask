@@ -4,4 +4,4 @@ from flask import Blueprint
 
 libro_api_blueprint = Blueprint("libro_api", __name__)
 
-from . import routes
+from . import routes  # pyright: ignore [reportUnusedImport]
