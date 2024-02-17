@@ -2,6 +2,7 @@ from flask import Response, jsonify, request
 from . import libro_api_blueprint
 from .. import db, JsonDict
 from ..models import Libro, Autor
+from ..transformations import create_book
 
 # aqui se definen las rutas
 
@@ -38,18 +39,10 @@ def add_book() -> Response:
     # Asume que los identificadores de los autores vienen en una cadena separada por comas
     author_ids_as_strings = request.form.get("author_ids", "")
 
-    # Convierte la cadena de identificadores en una lista de enteros
-    author_ids = [int(aid) for aid in author_ids_as_strings.split(",") if aid.isdigit()]
-
-    libro = Libro()
-    libro.title = title
-    # Busca los autores por los IDs y los asocia con el libro
-    if author_ids:
-        autores = Autor.query.filter(Autor.id.in_(author_ids)).all()  # type: ignore [misc]
-        for autor in autores:
-            libro.autores.append(autor)
+    libro = create_book(title, author_ids_as_strings)
 
     db.session.add(libro)
+
     db.session.commit()
 
     response = jsonify({"message": "Libro added", "libro": libro.to_json()})

@@ -2,6 +2,8 @@ from typing import cast
 from flask import Flask
 import pytest
 from sqlalchemy import create_engine, inspect
+
+from ..application.transformations import create_book
 from ..application import create_app, db
 from ..application.models import Libro
 
@@ -50,3 +52,10 @@ def test_add_libro(app: Flask) -> None:
         libro = Libro(title="Un Nuevo Libro")  # type: ignore [call-arg]
         db.session.add(libro)
         assert Libro.query.count() == 1
+
+
+def test_crear_libro(app: Flask) -> None:
+    with app.app_context():
+        libro = create_book("Un libro", "")
+        assert libro.title == "Un libro"
+        assert list(libro.autores) == []
