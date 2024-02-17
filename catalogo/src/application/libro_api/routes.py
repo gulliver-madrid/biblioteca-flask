@@ -36,16 +36,16 @@ def add_book() -> Response:
     title = request.form["title"]
 
     # Asume que los identificadores de los autores vienen en una cadena separada por comas
-    author_ids = request.form.get("author_ids", "")
+    author_ids_as_strings = request.form.get("author_ids", "")
 
     # Convierte la cadena de identificadores en una lista de enteros
-    author_ids = [int(aid) for aid in author_ids.split(",") if aid.isdigit()]
+    author_ids = [int(aid) for aid in author_ids_as_strings.split(",") if aid.isdigit()]
 
     libro = Libro()
     libro.title = title
     # Busca los autores por los IDs y los asocia con el libro
     if author_ids:
-        autores = Autor.query.filter(Autor.id.in_(author_ids)).all()
+        autores = Autor.query.filter(Autor.id.in_(author_ids)).all()  # type: ignore [misc]
         for autor in autores:
             libro.autores.append(autor)
 
@@ -72,7 +72,7 @@ def add_author() -> Response:
 @libro_api_blueprint.route("/api/libro/<int:libro_id>", methods=["PUT"])
 def update_book(libro_id: int) -> tuple[Response, int]:
     # Busca el libro por ID
-    libro = Libro.query.get(libro_id)
+    libro = Libro.query.get(libro_id)  # type: ignore [misc]
     if libro is None:
         return jsonify({"message": "Libro not found"}), 404
 

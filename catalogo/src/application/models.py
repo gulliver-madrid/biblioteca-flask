@@ -57,14 +57,20 @@ class Libro(Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     # La relacion con autores se maneja a traves de la tabla asociativa
 
-    autores: list[Autor]
+    if TYPE_CHECKING:
+        autores: list[Autor]
 
     def __repr__(self) -> str:
-        return f'<Libro(id={self.id}, title="{self.title}")>'
+        return f"""<Libro(id={self.id}, title="{self.title}", autores="{self._repr_autores()}")>"""
 
     def to_json(self) -> JsonDict:
         return {
             "id": self.id,
             "title": self.title,
+            "autores": self._repr_autores(),
             "date_added": self.date_added,
         }
+
+    def _repr_autores(self) -> str:
+        autores = [autor.nombre for autor in self.autores]
+        return ", ".join(autores)
