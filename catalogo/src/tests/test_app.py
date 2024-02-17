@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, inspect
 
 from ..application.transformations import create_book
 from ..application import create_app, db
-from ..application.models import Libro
+from ..application.models import Autor, Libro
 
 
 def has_tables(app: Flask) -> bool:
@@ -54,8 +54,18 @@ def test_add_libro(app: Flask) -> None:
         assert Libro.query.count() == 1
 
 
-def test_crear_libro(app: Flask) -> None:
+def test_crear_libro_sin_autores(app: Flask) -> None:
     with app.app_context():
         libro = create_book("Un libro", "")
         assert libro.title == "Un libro"
         assert list(libro.autores) == []
+
+
+def test_crear_libro_con_un_autor(app: Flask) -> None:
+    with app.app_context():
+        autor = Autor(nombre="Julio Verne")  # type: ignore [call-arg]
+        db.session.add(autor)
+        libro = create_book("Un libro", "1")
+        assert libro.title == "Un libro"
+        assert len(list(libro.autores)) == 1
+        assert list(libro.autores)[0].nombre == "Julio Verne"
