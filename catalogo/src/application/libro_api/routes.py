@@ -34,8 +34,20 @@ def get_autores() -> Response:
 @libro_api_blueprint.route("/api/libro/add", methods=["POST"])
 def add_book() -> Response:
     title = request.form["title"]
+
+    # Asume que los identificadores de los autores vienen en una cadena separada por comas
+    author_ids = request.form.get("author_ids", "")
+
+    # Convierte la cadena de identificadores en una lista de enteros
+    author_ids = [int(aid) for aid in author_ids.split(",") if aid.isdigit()]
+
     libro = Libro()
     libro.title = title
+    # Busca los autores por los IDs y los asocia con el libro
+    if author_ids:
+        autores = Autor.query.filter(Autor.id.in_(author_ids)).all()
+        for autor in autores:
+            libro.autores.append(autor)
 
     db.session.add(libro)
     db.session.commit()

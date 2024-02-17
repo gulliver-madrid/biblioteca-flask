@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     class Query(Generic[T]):
         def all(self) -> list[T]: ...
         def get(self, _: int) -> T | None: ...
+        def filter(self, _: object) -> "Query[T]": ...
 
     class Model:
         query: Query[Self]
@@ -55,6 +56,8 @@ class Libro(Model):
     title = db.Column(db.String(255), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     # La relacion con autores se maneja a traves de la tabla asociativa
+
+    autores: list[Autor]
 
     def __repr__(self) -> str:
         return f'<Libro(id={self.id}, title="{self.title}")>'
