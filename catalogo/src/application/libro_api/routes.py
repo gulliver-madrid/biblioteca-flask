@@ -55,3 +55,21 @@ def add_author() -> Response:
 
     response = jsonify({"message": "Author added", "autor": autor.to_json()})
     return response
+
+
+@libro_api_blueprint.route("/api/libro/<int:libro_id>", methods=["PUT"])
+def update_book(libro_id: int) -> tuple[Response, int]:
+    # Busca el libro por ID
+    libro = Libro.query.get(libro_id)
+    if libro is None:
+        return jsonify({"message": "Libro not found"}), 404
+
+    # Actualiza los datos del libro con los nuevos valores proporcionados en la solicitud
+    title = request.form.get("title")
+    if title:
+        libro.title = title
+
+    # Guarda los cambios en la base de datos
+    db.session.commit()
+
+    return jsonify({"message": "Libro updated", "libro": libro.to_json()}), 200

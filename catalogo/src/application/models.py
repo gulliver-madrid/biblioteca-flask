@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
     class Query(Generic[T]):
         def all(self) -> list[T]: ...
+        def get(self, _: int) -> T | None: ...
 
     class Model:
         query: Query[Self]
