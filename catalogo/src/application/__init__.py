@@ -16,12 +16,16 @@ db = SQLAlchemy(model_class=Base)
 from .. import config  # pyright: ignore [reportUnusedImport]
 
 
-def create_app() -> Flask:
+def create_app(testing: bool = False) -> Flask:
     app = Flask(__name__)
 
     environment_configuration = os.environ["CONFIGURATION_SETUP"]
 
     app.config.from_object(environment_configuration)
+
+    if testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+        app.config["TESTING"] = True
 
     db.init_app(app)
 
