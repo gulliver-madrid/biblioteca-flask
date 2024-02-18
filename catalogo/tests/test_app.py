@@ -3,9 +3,9 @@ from flask import Flask
 import pytest
 from sqlalchemy import create_engine, inspect
 
-from ..application.transformations import create_book
-from ..application import create_app, db
-from ..application.models import Autor, Libro
+from src.application import create_app, db
+from src.application.models import Autor, Libro
+from src.application.transformations import create_book
 
 
 def has_tables(app: Flask) -> bool:
