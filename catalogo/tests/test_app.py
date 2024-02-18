@@ -39,3 +39,19 @@ def test_crear_libro_con_un_autor(app: Flask) -> None:
         assert list(libro.autores)[0].nombre == "Julio Verne"
         assert list(libro.autores)[0].id == 1
 
+
+def test_el_id_se_incorpora_al_anadir_un_autor(app: Flask) -> None:
+    """
+    Este test muestra que la llamada a query.all() genera una llamada a
+    session.flush() de tal forma que se asigna un id al Autor anadido.
+    """
+    with app.app_context():
+        autor = Autor(nombre="Julio Verne")  # type: ignore [call-arg]
+        db.session.add(autor)
+        assert autor.id == None
+        assert autor.nombre == "Julio Verne"
+        # Esta llamada provoca el flush()
+        first_autor = Autor.query.all()[0]
+        assert first_autor.id == 1
+        assert autor == first_autor
+        assert autor.id == 1
