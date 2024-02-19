@@ -1,0 +1,12 @@
+{
+  "name": "prestamos",
+  "version": "1.0.0",
+  "description": "Microservicio para la gestión de los préstamos de la biblioteca.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
