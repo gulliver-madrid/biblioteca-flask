@@ -7,7 +7,6 @@ from src.application.models import Autor, Libro
 from src.application.transformations import (
     create_book,
     get_autores_por_ids,
-    to_ints,
     update_book,
 )
 from .fixture import app  # pyright: ignore [reportUnusedImport]
@@ -119,14 +118,6 @@ def test_actualizar_libro_eliminando_autor(app: Flask) -> None:
 
         assert libro.title == "Nuevo titulo"
         assert len(list(libro.autores)) == 0
-
-
-def test_to_ints() -> None:
-    assert to_ints("") == []
-    assert to_ints("1") == [1]
-    assert to_ints("1,2") == [1, 2]
-    assert to_ints("no_valido") == None
-    assert to_ints(",") == None
 
 
 def test_get_autores_por_ids(app: Flask) -> None:
