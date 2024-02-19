@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "return_date": "2024-03-01",
+        "user": "manuel",
+        "id_book": 1
+    },
+    {
+        "id": 2,
+        "return_date": "2024-04-01",
+        "user": "laura",
+        "id_book": 3
+    },
+    {
+        "id": 3,
+        "return_date": "2024-04-15",
+        "user": "maría",
+        "id_book": 2
+    }
+]
