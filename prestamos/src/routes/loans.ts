@@ -1,9 +1,10 @@
 import express from 'express'
+import { getPrestamos } from '../services/loans'
 
 const router = express.Router()
 
 router.get('/', (_, res) => {
-  res.send('Viendo los usuarios y prestamos')
+  res.send(getPrestamos())
 })
 
 router.post('/', (_, res) => {
