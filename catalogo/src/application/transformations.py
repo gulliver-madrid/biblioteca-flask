@@ -2,14 +2,8 @@ from .models import Libro, Autor
 
 
 def create_book(title: str, author_ids_as_str: str) -> Libro:
-
-    author_ids = to_ints(author_ids_as_str)
-    if author_ids is None:
-        raise RuntimeError(f'Campo autores no válido: "{author_ids_as_str}"')
-
     libro = Libro()
-    libro.title = title
-    libro.autores = get_autores_por_ids(author_ids)
+    update_book(libro, title, author_ids_as_str)
     return libro
 
 
