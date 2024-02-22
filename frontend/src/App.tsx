@@ -27,6 +27,7 @@ function App() {
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
         <div className="width-100vw">
+          <BookList libros={data.libros} />
           <h3 className="align-left">Socios con libros prestados:</h3>
           <ol>
             {data.prestamos.map((prestamo) => (
@@ -38,7 +39,6 @@ function App() {
             ))}
           </ol>
         </div>
-        <BookList libros={data.libros} />
       </div>
     </>
   )
