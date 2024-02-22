@@ -1,24 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { Estado, Libro } from './types'
 
 const API_PRESTAMOS = 'http://localhost:3000/api/loans'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
-
-interface Prestamo {
-  id: number
-  user: string
-  id_book: number
-}
-
-interface Libro {
-  id: number
-  title: string
-}
-
-interface Estado {
-  prestamos: Prestamo[]
-  libros: Libro[]
-}
 
 function getLibroById(libros: Libro[], id: number): Libro | undefined {
   for (const libro of libros) {
