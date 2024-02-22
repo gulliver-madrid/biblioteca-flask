@@ -3,14 +3,7 @@ import './App.css'
 import { Estado, Libro } from './types'
 import { BookList } from './components/BookList.tsx'
 import { fetchData } from './services/fetchData.ts'
-
-function getLibroById(libros: Libro[], id: number): Libro | undefined {
-  for (const libro of libros) {
-    if (libro.id === id) {
-      return libro
-    }
-  }
-}
+import { LoanList } from './components/LoanList.tsx'
 
 function App() {
   const [data, setData] = useState<Estado>({ prestamos: [], libros: [] })
@@ -28,16 +21,7 @@ function App() {
         <p>Te damos la bienvenida a nuestra biblioteca</p>
         <div className="width-100vw">
           <BookList libros={data.libros} />
-          <h3 className="align-left">Socios con libros prestados:</h3>
-          <ol>
-            {data.prestamos.map((prestamo) => (
-              <li key={prestamo.id}>
-                {prestamo.user} tiene prestado el libro con id {prestamo.id}:{' '}
-                {getLibroById(data.libros, prestamo.id_book)?.title ||
-                  'desconocido'}
-              </li>
-            ))}
-          </ol>
+          <LoanList libros={data.libros} prestamos={data.prestamos} />
         </div>
       </div>
     </>
