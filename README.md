@@ -1,3 +1,3 @@
-# Biblioteca Flask
+# Biblioteca Microservicios
 
-Proyecto de aprendizaje de creación de microservicios usando Flask. Warning: force push risks!
+Proyecto de aprendizaje de creación de microservicios usando Flask, Express y React. Warning: force push risks!
