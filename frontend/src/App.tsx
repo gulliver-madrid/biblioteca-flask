@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { Estado, Libro } from './types'
+import { BookList } from './components/Libro'
 
 const API_PRESTAMOS = 'http://localhost:3000/api/loans'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
@@ -57,16 +58,7 @@ function App() {
             ))}
           </ol>
         </div>
-        <div>
-          <h3 className="align-left">Libros:</h3>
-          <ol>
-            {data.libros.map((libro) => (
-              <li key={libro.id}>
-                {libro.title} (id {libro.id})
-              </li>
-            ))}
-          </ol>
-        </div>
+        <BookList libros={data.libros} />
       </div>
     </>
   )
