@@ -1,5 +1,8 @@
 from flask_migrate import Migrate
+from flask_cors import CORS
 from .application import create_app, db, JsonDict
+
+FRONTEND_PORT = 5173
 
 
 # desde aqui se ejecuta la aplicacion flask
@@ -9,6 +12,7 @@ from .application import create_app, db, JsonDict
 from .application import models  # pyright: ignore [reportUnusedImport]
 
 app = create_app()
+CORS(app, resources={r"/api/*": {"origins": f"http://localhost:{FRONTEND_PORT}"}})
 migrate = Migrate(app, db)
 
 
