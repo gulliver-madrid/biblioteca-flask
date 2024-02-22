@@ -7,6 +7,7 @@ const API_CATALOGO = 'http://localhost:7001/api/libros'
 interface Prestamo {
   id: number
   user: string
+  id_book: number
 }
 
 interface Libro {
@@ -17,6 +18,14 @@ interface Libro {
 interface Estado {
   prestamos: Prestamo[]
   libros: Libro[]
+}
+
+function getLibroById(libros: Libro[], id: number): Libro | undefined {
+  for (const libro of libros) {
+    if (libro.id === id) {
+      return libro
+    }
+  }
 }
 
 function App() {
@@ -56,7 +65,9 @@ function App() {
           <ol>
             {data.prestamos.map((prestamo) => (
               <li key={prestamo.id}>
-                {prestamo.user} tiene prestado el libro {prestamo.id}
+                {prestamo.user} tiene prestado el libro con id {prestamo.id}:{' '}
+                {getLibroById(data.libros, prestamo.id_book)?.title ||
+                  'desconocido'}
               </li>
             ))}
           </ol>
