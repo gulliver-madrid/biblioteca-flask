@@ -6,15 +6,12 @@ const API_CATALOGO = 'http://localhost:7001/api/libros'
 
 interface Prestamo {
   id: number
-  // nombre: string;
-  // otros campos relevantes
+  user: string
 }
 
 interface Libro {
   id: number
-  // titulo: string;
-  // autor: string;
-  // otros campos relevantes
+  title: string
 }
 
 interface Estado {
@@ -44,7 +41,7 @@ function App() {
     } catch (error) {
       console.error('Hubo un error en la solicitud:', error)
     }
-    setData({ prestamos, libros })
+    setData({ prestamos, libros: libros.results })
   }
   useEffect(() => {
     fetchData()
@@ -54,8 +51,26 @@ function App() {
       <h1>Biblioteca</h1>
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
-        <p>prestamos: {JSON.stringify(data.prestamos)}</p>
-        <p>libros: {JSON.stringify(data.libros)}</p>
+        <div className="width-100vw">
+          <h3 className="align-left">Socios con libros prestados:</h3>
+          <ol>
+            {data.prestamos.map((prestamo) => (
+              <li key={prestamo.id}>
+                {prestamo.user} tiene prestado el libro {prestamo.id}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <h3 className="align-left">Libros:</h3>
+          <ol>
+            {data.libros.map((libro) => (
+              <li key={libro.id}>
+                {libro.title} (id {libro.id})
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </>
   )

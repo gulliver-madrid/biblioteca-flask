@@ -10,3 +10,15 @@
 .card {
   padding: 2em;
 }
+
+li {
+  text-align: left;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.width-100vw {
+  width: 100vw;
+}
