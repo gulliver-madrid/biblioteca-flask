@@ -1,13 +1,6 @@
+import { getBookById } from '../services/getBookById'
 import { Libro, Prestamo } from '../types'
 import './LoanList.css'
-
-function getLibroById(libros: Libro[], id: number): Libro | undefined {
-  for (const libro of libros) {
-    if (libro.id === id) {
-      return libro
-    }
-  }
-}
 
 export function LoanList({ prestamos, libros }: Props) {
   return (
@@ -17,7 +10,7 @@ export function LoanList({ prestamos, libros }: Props) {
         {prestamos.map((prestamo) => (
           <li key={prestamo.id}>
             {prestamo.user} tiene prestado el libro con id {prestamo.id}:{' '}
-            {getLibroById(libros, prestamo.id_book)?.title || 'desconocido'}
+            {getBookById(libros, prestamo.id_book)?.title || 'desconocido'}
           </li>
         ))}
       </ol>
