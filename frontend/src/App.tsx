@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Estado, Libro } from './types'
+import { Estado } from './types'
 import { BookList } from './components/BookList.tsx'
 import { fetchData } from './services/fetchData.ts'
 import { LoanList } from './components/LoanList.tsx'
