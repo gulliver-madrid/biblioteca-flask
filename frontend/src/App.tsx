@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Estado, Libro } from './types'
 import { BookList } from './components/Libro'
-
-const API_PRESTAMOS = 'http://localhost:3000/api/loans'
-const API_CATALOGO = 'http://localhost:7001/api/libros'
+import { fetchData } from './services/fetchData.ts'
 
 function getLibroById(libros: Libro[], id: number): Libro | undefined {
   for (const libro of libros) {
@@ -16,30 +14,12 @@ function getLibroById(libros: Libro[], id: number): Libro | undefined {
 
 function App() {
   const [data, setData] = useState<Estado>({ prestamos: [], libros: [] })
-  async function fetchData(): Promise<void> {
-    let prestamos = null
-    let libros = null
-    try {
-      // Recuperar la lista de prestamos
-      const responsePrestamos = await fetch(API_PRESTAMOS)
-      if (!responsePrestamos.ok) {
-        throw new Error('Error al recuperar los préstamos')
-      }
-      prestamos = await responsePrestamos.json()
-
-      // Recuperar la lista de libros
-      const responseLibros = await fetch(API_CATALOGO)
-      if (!responseLibros.ok) {
-        throw new Error('Error al recuperar los libros')
-      }
-      libros = await responseLibros.json()
-    } catch (error) {
-      console.error('Hubo un error en la solicitud:', error)
-    }
-    setData({ prestamos, libros: libros.results })
-  }
   useEffect(() => {
-    fetchData()
+    const update = async () => {
+      const newData = await fetchData()
+      setData(newData)
+    }
+    update()
   }, [])
   return (
     <>
