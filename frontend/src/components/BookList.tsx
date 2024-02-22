@@ -1,5 +1,5 @@
 import { Libro } from '../types'
-import './Libro.css'
+import './BookList.css'
 
 export function BookList({ libros }: Props) {
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { Estado, Libro } from './types'
-import { BookList } from './components/Libro'
+import { BookList } from './components/BookList.tsx'
 import { fetchData } from './services/fetchData.ts'
 
 function getLibroById(libros: Libro[], id: number): Libro | undefined {
