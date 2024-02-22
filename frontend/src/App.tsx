@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+const API_PRESTAMOS = 'http://localhost:3000/api/loans'
+const API_CATALOGO = 'http://localhost:7001/api/libros'
+
 interface Prestamo {
   id: number
   // nombre: string;
@@ -26,22 +29,18 @@ function App() {
     let libros = null
     try {
       // Recuperar la lista de prestamos
-      const responsePrestamos = await fetch('http://localhost:3000/api/loans')
+      const responsePrestamos = await fetch(API_PRESTAMOS)
       if (!responsePrestamos.ok) {
-        console.log('error prestamos')
         throw new Error('Error al recuperar los préstamos')
       }
       prestamos = await responsePrestamos.json()
-      console.log('Préstamos:', prestamos)
 
       // Recuperar la lista de libros
-      const responseLibros = await fetch('http://localhost:7001/api/libros')
+      const responseLibros = await fetch(API_CATALOGO)
       if (!responseLibros.ok) {
-        console.log('error libros')
         throw new Error('Error al recuperar los libros')
       }
       libros = await responseLibros.json()
-      console.log('Libros:', libros)
     } catch (error) {
       console.error('Hubo un error en la solicitud:', error)
     }
