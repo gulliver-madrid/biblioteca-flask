@@ -9,7 +9,7 @@ export function LoanList({ prestamos, libros }: Props) {
       <ol>
         {prestamos.map((prestamo) => (
           <li key={prestamo.id}>
-            {prestamo.user} tiene prestado el libro con id {prestamo.id}:{' '}
+            {prestamo.user||"<usuario no identificado>"} tiene prestado el libro con id {prestamo.id}:{' '}
             {getBookById(libros, prestamo.id_book)?.title || 'desconocido'}
           </li>
         ))}
