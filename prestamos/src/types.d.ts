@@ -1,7 +1,7 @@
 export interface PrestamoEntry {
   id: number
   return_date: string
-  user: string
+  id_user: number
   id_book: number
 }
 export interface SocioEntry {
