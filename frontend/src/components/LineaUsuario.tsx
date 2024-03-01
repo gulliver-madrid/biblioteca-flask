@@ -2,11 +2,12 @@ import { getBookById } from '../services/getBookById'
 import { Libro, Prestamo } from '../types'
 
 export function LineaUsuario({ prestamo, libros }: LineaUsuarioProps) {
+  const userName = prestamo.user || '<usuario no identificado>'
+  const bookTitle =
+    getBookById(libros, prestamo.id_book)?.title || 'desconocido'
   return (
     <li>
-      {prestamo.user || '<usuario no identificado>'} tiene prestado el libro con
-      id {prestamo.id_book}:{' '}
-      {getBookById(libros, prestamo.id_book)?.title || 'desconocido'}
+      {userName} tiene prestado el libro con id {prestamo.id_book}: {bookTitle}
     </li>
   )
 }
