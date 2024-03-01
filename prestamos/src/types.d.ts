@@ -4,3 +4,7 @@ export interface PrestamoEntry {
   user: string
   id_book: number
 }
+export interface SocioEntry {
+  id: number
+  user: string
+}
