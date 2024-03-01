@@ -8,10 +8,7 @@ export function LoanList({ prestamos, libros }: Props) {
       <h3 className="align-left">Socios con libros prestados:</h3>
       <ol>
         {prestamos.map((prestamo) => (
-          <li key={prestamo.id}>
-            {prestamo.user||"<usuario no identificado>"} tiene prestado el libro con id {prestamo.id}:{' '}
-            {getBookById(libros, prestamo.id_book)?.title || 'desconocido'}
-          </li>
+          <LineaUsuario key={prestamo.id} prestamo={prestamo} libros={libros} />
         ))}
       </ol>
     </div>
@@ -21,4 +18,19 @@ export function LoanList({ prestamos, libros }: Props) {
 interface Props {
   libros: Libro[]
   prestamos: Prestamo[]
+}
+
+function LineaUsuario({ prestamo, libros }: LineaUsuarioProps) {
+  return (
+    <li>
+      {prestamo.user || '<usuario no identificado>'} tiene prestado el libro con
+      id {prestamo.id_book}:{' '}
+      {getBookById(libros, prestamo.id_book)?.title || 'desconocido'}
+    </li>
+  )
+}
+
+interface LineaUsuarioProps {
+  prestamo: Prestamo
+  libros: Libro[]
 }
