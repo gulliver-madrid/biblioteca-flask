@@ -22,11 +22,15 @@ export async function fetchPrestamos() {
 }
 
 export async function fetchData(): Promise<Estado> {
-  let prestamos = []
+  let prestamos = null
   let libros = null
   try {
-    prestamos = await fetchPrestamos()
-    libros = await fetchLibros()
+    const [prestamosResult, librosResult] = await Promise.all([
+      fetchPrestamos(),
+      fetchLibros(),
+    ])
+    prestamos = prestamosResult
+    libros = librosResult
   } catch (error) {
     console.error('Hubo un error en la solicitud:', error)
   }
