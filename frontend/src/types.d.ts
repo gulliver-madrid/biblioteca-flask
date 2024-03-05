@@ -1,3 +1,15 @@
+interface PrestamoEntry {
+  id: number
+  return_date: string
+  id_user: number
+  id_book: number
+}
+
+interface Socio {
+  id: number
+  user: string
+}
+
 interface Prestamo {
   id: number
   user: string
@@ -14,4 +26,4 @@ interface Estado {
   libros: Libro[]
 }
 
-export { Prestamo, Libro, Estado }
+export { Prestamo, Libro, Estado, Socio, PrestamoEntry }
