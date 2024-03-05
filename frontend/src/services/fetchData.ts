@@ -12,15 +12,20 @@ export async function fetchLibros() {
   return libros.results
 }
 
+export async function fetchPrestamos() {
+  const responsePrestamos = await fetch(API_PRESTAMOS)
+  if (!responsePrestamos.ok) {
+    throw new Error('Error al recuperar los préstamos')
+  }
+  const prestamos = await responsePrestamos.json()
+  return prestamos
+}
+
 export async function fetchData(): Promise<Estado> {
-  let prestamos = null
+  let prestamos = []
   let libros = null
   try {
-    const responsePrestamos = await fetch(API_PRESTAMOS)
-    if (!responsePrestamos.ok) {
-      throw new Error('Error al recuperar los préstamos')
-    }
-    prestamos = await responsePrestamos.json()
+    prestamos = await fetchPrestamos()
     libros = await fetchLibros()
   } catch (error) {
     console.error('Hubo un error en la solicitud:', error)
