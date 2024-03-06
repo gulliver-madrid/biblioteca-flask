@@ -1,4 +1,5 @@
-import { Estado, Libro, assertIsLibrosResponse } from '../types'
+import { assertIsLibrosResponse } from '../assertTypes'
+import { Estado, Libro } from '../types'
 
 const API_PRESTAMOS = 'http://localhost:3000/api/loans'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
@@ -23,8 +24,8 @@ export async function fetchPrestamos() {
 }
 
 export async function fetchData(): Promise<Estado> {
-  let prestamos = null
-  let libros = null
+  let prestamos
+  let libros
   try {
     const [prestamosResult, librosResult] = await Promise.all([
       fetchPrestamos(),

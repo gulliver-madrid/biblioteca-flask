@@ -25,26 +25,12 @@ interface Libro {
 
 interface Estado {
   prestamos: Prestamo[]
-  libros: Libro[]
+  libros?: Libro[]
 }
 
 interface LibrosResponse {
   results: Libro[]
 }
 
-export function assertIsLibrosResponse(
-  obj: unknown
-): asserts obj is LibrosResponse {
-  if (typeof obj !== 'object' || obj === null) {
-    throw new Error('Input must be an object')
-  }
-  if (
-    !Object.prototype.hasOwnProperty.call(obj, 'results') ||
-    !Array.isArray(obj.results)
-  ) {
-    throw new Error('Object does not match the LibrosResponse interface')
-  }
-}
-
 export { Prestamo, Libro, Estado, Socio, PrestamoEntry }
-export type { LibrosResponse }
+export { LibrosResponse }

@@ -19,10 +19,14 @@ function App() {
       <h1>Biblioteca</h1>
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
-        <div className="width-100vw">
-          <BookList libros={data.libros} />
-          <LoanList libros={data.libros} prestamos={data.prestamos} />
-        </div>
+        {data.libros ? (
+          <div className="width-100vw">
+            <BookList libros={data.libros} />
+            <LoanList libros={data.libros} prestamos={data.prestamos} />
+          </div>
+        ) : (
+          <p>Error: no se encontraron los libros</p>
+        )}
       </div>
     </>
   )
