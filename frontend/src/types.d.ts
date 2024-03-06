@@ -17,10 +17,10 @@ interface Prestamo {
 }
 
 interface Libro {
-  id: number;
-  title: string;
-  autores: string;
-  date_added: string;
+  id: number
+  title: string
+  autores: string
+  date_added: string
 }
 
 interface Estado {
@@ -29,7 +29,21 @@ interface Estado {
 }
 
 interface LibrosResponse {
-  results: Libro[];
+  results: Libro[]
+}
+
+export function assertIsLibrosResponse(
+  obj: unknown
+): asserts obj is LibrosResponse {
+  if (typeof obj !== 'object' || obj === null) {
+    throw new Error('Input must be an object')
+  }
+  if (
+    !Object.prototype.hasOwnProperty.call(obj, 'results') ||
+    !Array.isArray(obj.results)
+  ) {
+    throw new Error('Object does not match the LibrosResponse interface')
+  }
 }
 
 export { Prestamo, Libro, Estado, Socio, PrestamoEntry }
