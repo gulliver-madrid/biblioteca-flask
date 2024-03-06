@@ -17,8 +17,10 @@ interface Prestamo {
 }
 
 interface Libro {
-  id: number
-  title: string
+  id: number;
+  title: string;
+  autores: string;
+  date_added: string;
 }
 
 interface Estado {
