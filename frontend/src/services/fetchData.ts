@@ -1,14 +1,15 @@
-import { Estado } from '../types'
+import { Estado, Libro, assertIsLibrosResponse } from '../types'
 
 const API_PRESTAMOS = 'http://localhost:3000/api/loans'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
 
-export async function fetchLibros() {
+export async function fetchLibros(): Promise<Libro[]> {
   const responseLibros = await fetch(API_CATALOGO)
   if (!responseLibros.ok) {
     throw new Error('Error al recuperar los libros')
   }
-  const libros = await responseLibros.json()
+  const libros: unknown = await responseLibros.json()
+  assertIsLibrosResponse(libros)
   return libros.results
 }
 
