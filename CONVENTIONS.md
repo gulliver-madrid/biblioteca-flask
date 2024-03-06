@@ -1,0 +1,1 @@
+- Cuando un commit solo afecte a los subdirectorios `catalogo`, `frontend` o `prestamos`, su mensaje de commit empezará por el nombre del directorio. Ejemplo: `catalogo: update Libro model`.
