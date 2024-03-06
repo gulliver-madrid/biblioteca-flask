@@ -28,4 +28,9 @@ interface Estado {
   libros: Libro[]
 }
 
+interface LibrosResponse {
+  results: Libro[];
+}
+
 export { Prestamo, Libro, Estado, Socio, PrestamoEntry }
+export type { LibrosResponse }
