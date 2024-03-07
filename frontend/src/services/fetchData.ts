@@ -1,7 +1,12 @@
-import { assertIsLibrosResponse, assertIsPrestamoArray } from '../assertTypes'
-import { Estado, Libro, Prestamo } from '../types'
+import {
+  assertIsLibrosResponse,
+  assertIsPrestamoArray,
+  assertIsSocioArray,
+} from '../assertTypes'
+import { Estado, Libro, Prestamo, Socio } from '../types'
 
 const API_PRESTAMOS = 'http://localhost:3000/api/loans'
+const API_SOCIOS = 'http://localhost:3000/api/socios'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
 
 export async function fetchLibros(): Promise<Libro[]> {
@@ -22,6 +27,15 @@ export async function fetchPrestamos(): Promise<Prestamo[]> {
   const prestamos: unknown = await responsePrestamos.json()
   assertIsPrestamoArray(prestamos)
   return prestamos
+}
+export async function fetchSocios(): Promise<Socio[]> {
+  const responseSocios = await fetch(API_SOCIOS)
+  if (!responseSocios.ok) {
+    throw new Error('Error al recuperar los socios')
+  }
+  const socios: unknown = await responseSocios.json()
+  assertIsSocioArray(socios)
+  return socios
 }
 
 export async function fetchData(): Promise<Estado> {

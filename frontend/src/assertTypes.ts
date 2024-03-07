@@ -1,4 +1,4 @@
-import { LibrosResponse, Prestamo, Libro } from './types'
+import { LibrosResponse, Prestamo, Libro, Socio } from './types'
 
 export function assertIsLibro(obj: unknown): asserts obj is Libro {
   if (typeof obj !== 'object' || obj === null) {
@@ -50,7 +50,6 @@ export function assertIsPrestamo(obj: unknown): asserts obj is Prestamo {
   ) {
     throw new Error('Object is missing properties to be a Prestamo')
   }
-
   if (
     typeof obj.id !== 'number' ||
     typeof obj.return_date !== 'string' ||
@@ -69,5 +68,28 @@ export function assertIsPrestamoArray(obj: unknown): asserts obj is Prestamo[] {
   }
   for (const prestamo of obj) {
     assertIsPrestamo(prestamo)
+  }
+}
+
+export function assertIsSocio(obj: unknown): asserts obj is Socio {
+  if (typeof obj !== 'object' || obj === null) {
+    throw new Error('Input must be an object')
+  }
+  if (!('id' in obj) || !('user' in obj)) {
+    throw new Error('Object is missing properties to be a Socio')
+  }
+  if (typeof obj.id !== 'number' || typeof obj.user !== 'string') {
+    throw new Error(
+      'Type of object properties do not match the Socio interface'
+    )
+  }
+}
+
+export function assertIsSocioArray(obj: unknown): asserts obj is Socio[] {
+  if (!Array.isArray(obj)) {
+    throw new Error('Object is not an array')
+  }
+  for (const socio of obj) {
+    assertIsSocio(socio)
   }
 }
