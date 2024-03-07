@@ -42,23 +42,27 @@ export async function fetchSocios(): Promise<Socio[]> {
 
 export async function fetchData(): Promise<Estado> {
   let prestamos
-  let libros
   let socios
+  let libros
+
+  const prestamosPromise = fetchPrestamos()
+  const sociosPromise = fetchSocios()
+  const librosPromise = fetchLibros()
 
   try {
-    prestamos = await fetchPrestamos()
+    prestamos = await prestamosPromise
   } catch (error) {
     console.error('Error al recuperar los préstamos:', error)
   }
 
   try {
-    socios = await fetchSocios()
+    socios = await sociosPromise
   } catch (error) {
     console.error('Error al recuperar los socios:', error)
   }
 
   try {
-    libros = await fetchLibros()
+    libros = await librosPromise
   } catch (error) {
     console.error('Error al recuperar los libros:', error)
   }
