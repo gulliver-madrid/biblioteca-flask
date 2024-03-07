@@ -41,17 +41,16 @@ export async function fetchSocios(): Promise<Socio[]> {
 export async function fetchData(): Promise<Estado> {
   let prestamos
   let libros
+  let socios
   try {
-    const [prestamosResult, librosResult] = await Promise.all([
-      fetchPrestamos(),
-      fetchLibros(),
-    ])
-    prestamos = prestamosResult
-    libros = librosResult
+    const prestamosPromise = fetchPrestamos()
+    const sociosPromise = fetchSocios()
+    const librosPromise = fetchLibros()
+    prestamos = await prestamosPromise
+    socios = await sociosPromise
+    libros = await librosPromise
   } catch (error) {
     console.error('Hubo un error en la solicitud:', error)
   }
-  return { prestamos, libros }
+  return { prestamos, socios, libros }
 }
-
-export { API_CATALOGO, API_PRESTAMOS }

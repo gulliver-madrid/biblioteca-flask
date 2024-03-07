@@ -20,13 +20,17 @@ function App(): JSX.Element {
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
         {data.libros ? (
-          data.prestamos ? (
+          data.prestamos && data.socios ? (
             <div className="width-100vw">
               <BookList libros={data.libros} />
-              <LoanList libros={data.libros} prestamos={data.prestamos} />
+              <LoanList
+                libros={data.libros}
+                socios={data.socios}
+                prestamos={data.prestamos}
+              />
             </div>
           ) : (
-            <p>Error: no se pudieron obtener los prestamos</p>
+            <p>Error: no se pudieron obtener los prestamos o los socios</p>
           )
         ) : (
           <p>Error: no se pudieron obtener los libros</p>

@@ -1,14 +1,19 @@
-import { Libro, Prestamo } from '../types'
+import { Libro, Prestamo, Socio } from '../types'
 import { LineaUsuario } from './LineaUsuario'
 import './LoanList.css'
 
-export function LoanList({ prestamos, libros }: Props): JSX.Element {
+export function LoanList({ prestamos, socios, libros }: Props): JSX.Element {
   return (
     <div className="loan-list">
       <h3 className="align-left">Socios con libros prestados:</h3>
       <ol>
         {prestamos.map((prestamo) => (
-          <LineaUsuario key={prestamo.id} prestamo={prestamo} libros={libros} />
+          <LineaUsuario
+            key={prestamo.id}
+            prestamo={prestamo}
+            socios={socios}
+            libros={libros}
+          />
         ))}
       </ol>
     </div>
@@ -17,5 +22,6 @@ export function LoanList({ prestamos, libros }: Props): JSX.Element {
 
 interface Props {
   libros: Libro[]
+  socios: Socio[]
   prestamos: Prestamo[]
 }

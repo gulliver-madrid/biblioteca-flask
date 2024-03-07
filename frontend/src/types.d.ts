@@ -20,6 +20,7 @@ interface Libro {
 interface Estado {
   prestamos?: Prestamo[]
   libros?: Libro[]
+  socios?: Socio[]
 }
 
 interface LibrosResponse {
