@@ -64,7 +64,7 @@ export function assertIsPrestamo(obj: unknown): asserts obj is Prestamo {
 
 export function assertIsPrestamoArray(obj: unknown): asserts obj is Prestamo[] {
   if (!Array.isArray(obj)) {
-    throw new Error('Object is not an array')
+    throw new Error(`Object is not an array: ${obj}`)
   }
   for (const prestamo of obj) {
     assertIsPrestamo(prestamo)

@@ -33,7 +33,9 @@ function App(): JSX.Element {
             <p>Error: no se pudieron obtener los prestamos o los socios</p>
           )
         ) : (
-          <p>Error: no se pudieron obtener los libros</p>
+          <p>
+            Error: no se pudieron obtener los libros: {JSON.stringify(data)}
+          </p>
         )}
       </div>
     </>

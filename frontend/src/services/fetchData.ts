@@ -9,31 +9,33 @@ const API_PRESTAMOS = 'http://localhost:3000/api/loans'
 const API_SOCIOS = 'http://localhost:3000/api/socios'
 const API_CATALOGO = 'http://localhost:7001/api/libros'
 
-export async function fetchLibros(): Promise<Libro[]> {
-  const responseLibros = await fetch(API_CATALOGO)
-  if (!responseLibros.ok) {
-    throw new Error('Error al recuperar los libros')
+async function validate_get_response(
+  response: Response,
+  dataDescription: string
+): Promise<unknown> {
+  if (!response.ok) {
+    throw new Error(`Error al recuperar ${dataDescription}`)
   }
-  const libros: unknown = await responseLibros.json()
+  return await response.json()
+}
+
+export async function fetchLibros(): Promise<Libro[]> {
+  const response = await fetch(API_CATALOGO)
+  const libros = await validate_get_response(response, 'los libros')
   assertIsLibrosResponse(libros)
   return libros.results
 }
 
 export async function fetchPrestamos(): Promise<Prestamo[]> {
-  const responsePrestamos = await fetch(API_PRESTAMOS)
-  if (!responsePrestamos.ok) {
-    throw new Error('Error al recuperar los préstamos')
-  }
-  const prestamos: unknown = await responsePrestamos.json()
+  const response = await fetch(API_PRESTAMOS)
+  const prestamos = await validate_get_response(response, 'los préstamos')
   assertIsPrestamoArray(prestamos)
   return prestamos
 }
+
 export async function fetchSocios(): Promise<Socio[]> {
-  const responseSocios = await fetch(API_SOCIOS)
-  if (!responseSocios.ok) {
-    throw new Error('Error al recuperar los socios')
-  }
-  const socios: unknown = await responseSocios.json()
+  const response = await fetch(API_SOCIOS)
+  const socios = await validate_get_response(response, 'los socios')
   assertIsSocioArray(socios)
   return socios
 }
