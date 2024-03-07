@@ -5,10 +5,10 @@ import { BookList } from './components/BookList.tsx'
 import { fetchData } from './services/fetchData.ts'
 import { LoanList } from './components/LoanList.tsx'
 
-function App() {
+function App(): JSX.Element {
   const [data, setData] = useState<Estado>({ prestamos: [], libros: [] })
   useEffect(() => {
-    const update = async () => {
+    const update = async (): Promise<void> => {
       const newData = await fetchData()
       setData(newData)
     }
@@ -20,12 +20,16 @@ function App() {
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
         {data.libros ? (
-          <div className="width-100vw">
-            <BookList libros={data.libros} />
-            <LoanList libros={data.libros} prestamos={data.prestamos} />
-          </div>
+          data.prestamos ? (
+            <div className="width-100vw">
+              <BookList libros={data.libros} />
+              <LoanList libros={data.libros} prestamos={data.prestamos} />
+            </div>
+          ) : (
+            <p>Error: no se pudieron obtener los prestamos</p>
+          )
         ) : (
-          <p>Error: no se encontraron los libros</p>
+          <p>Error: no se pudieron obtener los libros</p>
         )}
       </div>
     </>

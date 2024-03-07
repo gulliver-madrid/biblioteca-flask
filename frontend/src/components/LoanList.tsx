@@ -2,7 +2,7 @@ import { Libro, Prestamo } from '../types'
 import { LineaUsuario } from './LineaUsuario'
 import './LoanList.css'
 
-export function LoanList({ prestamos, libros }: Props) {
+export function LoanList({ prestamos, libros }: Props): JSX.Element {
   return (
     <div className="loan-list">
       <h3 className="align-left">Socios con libros prestados:</h3>

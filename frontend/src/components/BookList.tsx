@@ -1,7 +1,7 @@
 import { Libro } from '../types'
 import './BookList.css'
 
-export function BookList({ libros }: Props) {
+export function BookList({ libros }: Props): JSX.Element {
   return (
     <div className="book-list">
       <h3 className="align-left">Libros:</h3>
