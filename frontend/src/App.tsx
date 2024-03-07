@@ -19,22 +19,20 @@ function App(): JSX.Element {
       <h1>Biblioteca</h1>
       <div className="card">
         <p>Te damos la bienvenida a nuestra biblioteca</p>
-        {data.libros ? (
-          data.prestamos && data.socios ? (
-            <div className="width-100vw">
-              <BookList libros={data.libros} />
-              <LoanList
-                libros={data.libros}
-                socios={data.socios}
-                prestamos={data.prestamos}
-              />
-            </div>
-          ) : (
-            <p>Error: no se pudieron obtener los prestamos o los socios</p>
-          )
+        {data.libros && data.prestamos && data.socios ? (
+          <div className="width-100vw">
+            <BookList libros={data.libros} />
+            <LoanList
+              libros={data.libros}
+              socios={data.socios}
+              prestamos={data.prestamos}
+            />
+          </div>
         ) : (
           <p>
-            Error: no se pudieron obtener los libros: {JSON.stringify(data)}
+            Error: no se pudieron obtener algunos datos:
+            <br />
+            {JSON.stringify(data)}
           </p>
         )}
       </div>

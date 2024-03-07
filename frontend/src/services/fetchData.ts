@@ -44,15 +44,24 @@ export async function fetchData(): Promise<Estado> {
   let prestamos
   let libros
   let socios
+
   try {
-    const prestamosPromise = fetchPrestamos()
-    const sociosPromise = fetchSocios()
-    const librosPromise = fetchLibros()
-    prestamos = await prestamosPromise
-    socios = await sociosPromise
-    libros = await librosPromise
+    prestamos = await fetchPrestamos()
   } catch (error) {
-    console.error('Hubo un error en la solicitud:', error)
+    console.error('Error al recuperar los préstamos:', error)
   }
+
+  try {
+    socios = await fetchSocios()
+  } catch (error) {
+    console.error('Error al recuperar los socios:', error)
+  }
+
+  try {
+    libros = await fetchLibros()
+  } catch (error) {
+    console.error('Error al recuperar los libros:', error)
+  }
+
   return { prestamos, socios, libros }
 }
